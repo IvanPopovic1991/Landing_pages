@@ -15,17 +15,16 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RegistrationTestLp3 extends BaseTest{
+public class RegistrationTestLp4 extends BaseTest{
     @BeforeMethod
     public void setUp(){
         baseSetUp("CHROME","112");
     }
-    @Test(description = "User register account successfully on " +
-            "www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/ page")
+    @Test(description = "User register account successfully on www.fortrade.com/minilps/en/cryptocurrency/ page")
     @Description("User register account successfully under certain regulation")
     @Parameters({"countryCodeNumber","regulative"})
     public void accountRegistration(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/");
+        driver.get("https://www.fortrade.com/minilps/en/cryptocurrency/");
         AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
                 "test" + System.currentTimeMillis() + "@mailinator.com",countryCodeNumber , ""+

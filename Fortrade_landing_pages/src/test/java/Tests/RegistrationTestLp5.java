@@ -15,33 +15,34 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RegistrationTestLp3 extends BaseTest{
+public class RegistrationTestLp5 extends BaseTest {
     @BeforeMethod
-    public void setUp(){
-        baseSetUp("CHROME","112");
+    public void setUp() {
+        baseSetUp("CHROME", "112");
     }
-    @Test(description = "User register account successfully on " +
-            "www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/ page")
+
+    @Test(description = "User register account successfully on www.fortrade.com/lp4/invest-today-bitcoin/ page")
     @Description("User register account successfully under certain regulation")
-    @Parameters({"countryCodeNumber","regulative"})
+    @Parameters({"countryCodeNumber", "regulative"})
     public void accountRegistration(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/");
+        driver.get("https://www.fortrade.com/lp4/invest-today-bitcoin/");
         AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
-                "test" + System.currentTimeMillis() + "@mailinator.com",countryCodeNumber , ""+
+                "test" + System.currentTimeMillis() + "@mailinator.com", countryCodeNumber, "" +
                         System.currentTimeMillis());
         //Waiting for data-lcreg attribute to bi visible
-        WebDriverWait wdWait = new WebDriverWait(driver,10);
-        wdWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("body[data-lcreg='"+regulative+"']")));
+        WebDriverWait wdWait = new WebDriverWait(driver, 10);
+        wdWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("body[data-lcreg='" + regulative + "']")));
         //Finding element in Elements
-        WebElement attribute = driver.findElement(By.cssSelector("body[data-lcreg='"+regulative+"']"));
+        WebElement attribute = driver.findElement(By.cssSelector("body[data-lcreg='" + regulative + "']"));
         //Taking the value from attribute data-lcreg (FSC, FCA, cysec, Asic, iiroc) and storage as a String type
         String regulativeValue = attribute.getAttribute("data-lcreg");
         //Verifying they are matching
-        Assert.assertEquals(regulativeValue,regulative);
-        new BasePage(driver).reportScreenshot("Screenshot "+regulative+" regulative");
+        Assert.assertEquals(regulativeValue, regulative);
+        new BasePage(driver).reportScreenshot("Screenshot " + regulative + " regulative");
 
     }
+
     @AfterMethod
     public void tearDown() {
         driver.quit();
