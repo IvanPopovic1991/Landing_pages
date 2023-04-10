@@ -35,7 +35,7 @@ public class RegistrationTestLp2 extends  BaseTest{
         WebElement attribute = driver.findElement(By.cssSelector("body[data-lcreg='"+regulative+"']"));
         String regulativeValue = attribute.getAttribute("data-lcreg");
         Assert.assertEquals(regulativeValue,regulative);
-        new BasePage(driver).reportScreenshot("Screenshot "+regulative+"regulative");
+        new BasePage(driver).reportScreenshot("Screenshot "+regulative+" regulative");
     }
     @AfterMethod
     public void tearDown() {

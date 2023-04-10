@@ -9,25 +9,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RegistrationTestLp1 extends BaseTest {
-
-    @BeforeMethod
-    public void setUp() {
-        baseSetUp("CHROME","112");
-    }
-
+public class RegistrationTestLp3 extends BaseTest{
     @Test(description = "User register account successfully on " +
-            "www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/ page")
+            "www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/ page")
     @Description("User register account successfully under certain regulation")
     @Parameters({"countryCodeNumber","regulative"})
     public void accountRegistration(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/");
+        driver.get("https://www.fortrade.com/minilps/en/trading-shares-is-at-your-fingertips/");
         AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
                 "test" + System.currentTimeMillis() + "@mailinator.com",countryCodeNumber , ""+
