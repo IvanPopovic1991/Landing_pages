@@ -15,17 +15,18 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RegistrationTestLp5 extends BaseTest {
+public class RegistrationTestLp7 extends BaseTest{
     @BeforeMethod
     public void setUp() {
         baseSetUp("CHROME", "112");
     }
 
-    @Test(description = "User register account successfully on www.fortrade.com/lp4/invest-today-bitcoin/ page")
+    @Test(description = "User register account successfully on " +
+            "www.fortrade.com/minilps/en/reg-trade-opportunities-can-glitter-like-gold-at-fortrade/ page")
     @Description("User register account successfully under certain regulation")
     @Parameters({"countryCodeNumber", "regulative"})
     public void accountRegistration(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/lp4/invest-today-bitcoin/");
+        driver.get("https://www.fortrade.com/minilps/en/reg-trade-opportunities-can-glitter-like-gold-at-fortrade/");
         AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
                 "test" + System.currentTimeMillis() + "@mailinator.com", countryCodeNumber, "" +
@@ -40,7 +41,9 @@ public class RegistrationTestLp5 extends BaseTest {
         //Verifying they are matching
         Assert.assertEquals(regulativeValue, regulative);
         new BasePage(driver).reportScreenshot("Screenshot " + regulative + " regulative");
+
     }
+
     @AfterMethod
     public void tearDown() {
         driver.quit();
