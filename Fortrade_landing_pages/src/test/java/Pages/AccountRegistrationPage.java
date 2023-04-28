@@ -25,6 +25,8 @@ public class AccountRegistrationPage extends BasePage {
     WebElement phoneNumber;
     @FindBy(css = "[name='Send']")
     WebElement startNowBtn;
+    @FindBy(xpath = "//div[@id='startTradingButton' and contains(text(),'CONTINUE')]")
+    public WebElement continueBtn;
 
     public void enterFirstName(String firstNameValue) {
         typeText(firstName, firstNameValue, "First name field");

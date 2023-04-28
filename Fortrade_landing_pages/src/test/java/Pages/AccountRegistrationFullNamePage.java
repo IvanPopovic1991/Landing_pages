@@ -22,7 +22,7 @@ public class AccountRegistrationFullNamePage extends BasePage{
     WebElement phoneNumber;
     @FindBy (css = "[name='Send']")
     WebElement startNowBtn;
-    @FindBy (css = "div[id='startTradingButton']")
+    @FindBy (xpath = "//div[@class='welcomePopup']//..//div[@id='startTradingButton']")
     public WebElement continueBtn;
 
     public void enterFullName(String fullNameValue){

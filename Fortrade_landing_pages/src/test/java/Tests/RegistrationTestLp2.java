@@ -15,28 +15,63 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class RegistrationTestLp2 extends  BaseTest{
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
+import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
+public class RegistrationTestLp2 extends BaseTest {
     @BeforeMethod
-    public void setUp(){
-        baseSetUp("CHROME","112");
+    public void setUp() {
+        baseSetUp("CHROME", "112");
     }
-    @Test(description = "User register account successfully on - www.fortrade.com/minilps/sl/pro-trader-dark-2/")
+
+    @Test(description = "User register account successfully on - www.fortrade.com/minilps/en/inst-oil/")
     @Description("User register account successfully under certain regulation")
-    @Parameters({"countryCodeNumber","regulative"})
+    @Parameters({"countryCodeNumber", "regulative"})
     public void accountRegistrationFullName(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/sl/pro-trader-dark-2/");
+        driver.get("https://www.fortrade.com/minilps/en/inst-oil/");
         AccountRegistrationFullNamePage accountRegistrationFullNamePage = new AccountRegistrationFullNamePage(driver);
-        accountRegistrationFullNamePage.accountRegistrationFullNamePageMethod("Testq Testa","test"
-        +System.currentTimeMillis()+"@mailinator.com",""+countryCodeNumber+"",""+System.currentTimeMillis());
-       // accountRegistrationFullNamePage.clickElement(accountRegistrationFullNamePage.continueBtn, "Continue button");
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("body[data-lcreg='"+regulative+"']")));
-        WebElement attribute = driver.findElement(By.cssSelector("body[data-lcreg='"+regulative+"']"));
+        accountRegistrationFullNamePage.accountRegistrationFullNamePageMethod("Testq Testa", "test"
+                + System.currentTimeMillis() + "@mailinator.com", "" + countryCodeNumber + "", "" + System.currentTimeMillis());
+//        driver.getWindowHandles().forEach(tab->driver.switchTo().window(tab));
+//        /**
+//         * ID of the original window
+//         */
+//        String originalWindow = driver.getWindowHandle();
+//        /**
+//         *Checking if there is no other windows open already
+//         */
+//        assert driver.getWindowHandles().size() == 1;
+//
+//        /**
+//         * Wait for the new tab or the window
+//         */
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(numberOfWindowsToBe(2));
+//        /**
+//         * Loop through until we find a new window handle or tab
+//         */
+//        for (String windowHandle : driver.getWindowHandles()) {
+//            if (!originalWindow.contentEquals(windowHandle)) {
+//                driver.switchTo().window(windowHandle);
+//                break;
+//            }
+//        }
+//        /**
+//         * Wait for the new tab to finish loading content
+//         */
+//        wait.until(titleIs("Access trading platform | Fortrade"));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='welcomePopup']//..//div[@id='startTradingButton']")));
+        wait.until(ExpectedConditions.visibilityOf(accountRegistrationFullNamePage.continueBtn));
+        wait.until(ExpectedConditions.elementToBeClickable(accountRegistrationFullNamePage.continueBtn));
+        accountRegistrationFullNamePage.clickElement(accountRegistrationFullNamePage.continueBtn, "Continue button");
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("body[data-lcreg='" + regulative + "']")));
+        WebElement attribute = driver.findElement(By.cssSelector("body[data-lcreg='" + regulative + "']"));
         String regulativeValue = attribute.getAttribute("data-lcreg");
-        Assert.assertEquals(regulativeValue,regulative);
-        new BasePage(driver).reportScreenshot("Screenshot "+regulative+" regulative");
+        Assert.assertEquals(regulativeValue, regulative);
+        new BasePage(driver).reportScreenshot("Screenshot " + regulative + " regulative");
     }
+
     @AfterMethod
     public void tearDown() {
         driver.quit();
