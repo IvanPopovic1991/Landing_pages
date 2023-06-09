@@ -20,7 +20,8 @@ public class RegistrationTestLp1 extends BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        baseSetUp("CHROME","112");
+        baseSetUp("CHROME","113");
+        driver.get("https://www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/");
     }
 
     @Test(description = "User register account successfully on " +
@@ -28,7 +29,6 @@ public class RegistrationTestLp1 extends BaseTest {
     @Description("User register account successfully under certain regulation")
     @Parameters({"countryCodeNumber","regulative"})
     public void accountRegistration(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/");
         AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
                 "test" + System.currentTimeMillis() + "@mailinator.com",countryCodeNumber , ""+
@@ -75,7 +75,44 @@ public class RegistrationTestLp1 extends BaseTest {
         //Verifying they are matching
         Assert.assertEquals(regulativeValue,regulative);
         new BasePage(driver).reportScreenshot("Screenshot "+regulative+" regulative");
+    }
+    @Test(description ="Confirm validation messages")
+    @Description("Appropriate error messages are triggered if user doesn't insert data")
+    public void fieldsValidation() throws IOException {
+        AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
+        accountRegistrationPage.clickElement(accountRegistrationPage.startNowBtn, "send button");
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='errorValidati" +
+                "onIn' and text()='Please enter all your given first name(s)']")));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='errorValidati" +
+                "onIn' and text()='Please enter all your given first name(s)']"))));
 
+        WebElement firstNameValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidati" +
+                "onIn' and text()='Please enter all your given first name(s)']"));
+        WebElement lastNameValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidationIn'" +
+                " and text()='Please enter your last name in alphabetic characters']"));
+        WebElement emailValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidationIn' " +
+                "and text()='Invalid email format.']"));
+        WebElement phoneNumberValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidati" +
+                "onIn' and text()='Invalid phone format.']"));
+
+        String firstNameErrorMessage = firstNameValidationMessage.getText();
+        String lastNameErrorMessage = lastNameValidationMessage.getText();
+        String emailErrorMessage = emailValidationMessage.getText();
+        String phoneNumberErrorMessage = phoneNumberValidationMessage.getText();
+
+        Assert.assertEquals(firstNameErrorMessage,"Please enter all your given first name(s)");
+        System.out.println("The text of the first name field validation message is : "+firstNameErrorMessage);
+
+        Assert.assertEquals(lastNameErrorMessage,"Please enter your last name in alphabetic characters");
+        System.out.println("The text of the last name field validation message is : "+lastNameErrorMessage);
+
+        Assert.assertEquals(emailErrorMessage,"Invalid email format.");
+        System.out.println("The text of the email field validation message is : "+emailErrorMessage);
+
+        Assert.assertEquals(phoneNumberErrorMessage,"Invalid phone format.");
+        System.out.println("The text of the phone number field validation message is : "+phoneNumberErrorMessage);
+        new BasePage(driver).reportScreenshot("Screenshot - validation messages are triggered and displayed properly");
     }
     @AfterMethod
     public void tearDown() {

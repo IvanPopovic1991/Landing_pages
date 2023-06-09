@@ -4,6 +4,7 @@ import Pages.AccountRegistrationFullNamePage;
 import Pages.BasePage;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,23 +13,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
-import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class RegistrationTestLp2 extends BaseTest {
     @BeforeMethod
     public void setUp() {
-        baseSetUp("CHROME", "112");
+        baseSetUp("CHROME", "113");
+        driver.get("https://www.fortrade.com/minilps/en/inst-oil/");
     }
 
-    @Test(description = "User register account successfully on - www.fortrade.com/minilps/en/inst-oil/")
+    @Test(description = "User register account successfully on-www.fortrade.com/minilps/en/inst-oil/")
     @Description("User register account successfully under certain regulation")
     @Parameters({"countryCodeNumber", "regulative"})
     public void accountRegistrationFullName(String countryCodeNumber, String regulative) throws IOException {
-        driver.get("https://www.fortrade.com/minilps/en/inst-oil/");
         AccountRegistrationFullNamePage accountRegistrationFullNamePage = new AccountRegistrationFullNamePage(driver);
         accountRegistrationFullNamePage.accountRegistrationFullNamePageMethod("Testq Testa", "test"
                 + System.currentTimeMillis() + "@mailinator.com", "" + countryCodeNumber + "", "" + System.currentTimeMillis());
@@ -45,7 +42,7 @@ public class RegistrationTestLp2 extends BaseTest {
 //        /**
 //         * Wait for the new tab or the window
 //         */
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 //        wait.until(numberOfWindowsToBe(2));
 //        /**
 //         * Loop through until we find a new window handle or tab
@@ -60,7 +57,7 @@ public class RegistrationTestLp2 extends BaseTest {
 //         * Wait for the new tab to finish loading content
 //         */
 //        wait.until(titleIs("Access trading platform | Fortrade"));
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='welcomePopup']//..//div[@id='startTradingButton']")));
         wait.until(ExpectedConditions.visibilityOf(accountRegistrationFullNamePage.continueBtn));
         wait.until(ExpectedConditions.elementToBeClickable(accountRegistrationFullNamePage.continueBtn));
@@ -71,7 +68,41 @@ public class RegistrationTestLp2 extends BaseTest {
         Assert.assertEquals(regulativeValue, regulative);
         new BasePage(driver).reportScreenshot("Screenshot " + regulative + " regulative");
     }
+    @Test(description = "Confirm validation messages")
+    @Description("Appropriate error messages are triggered if user doesn't insert data")
+    public void fieldsValidation() throws IOException {
+        AccountRegistrationFullNamePage accountRegistrationFullNamePage = new AccountRegistrationFullNamePage(driver);
+        JavascriptExecutor js =(JavascriptExecutor) driver;
+        js.executeScript("window.scroll(0,250)");
+        accountRegistrationFullNamePage.clickElement(accountRegistrationFullNamePage.startNowBtn, "send button");
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='errorValidationIn'" +
+                " and text()='Enter your full name']")));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='errorValidationIn'" +
+                 "and text()='Enter your full name']"))));
 
+        WebElement fullNameValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidationIn'" +
+                " and text()='Enter your full name']"));
+        WebElement emailValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidationIn' " +
+                "and text()='Invalid email format.']"));
+        WebElement phoneNumberValidationMessage = driver.findElement(By.xpath("//div[@class='errorValidati" +
+                "onIn' and text()='Invalid phone format.']"));
+
+        String fullNameErrorMessage = fullNameValidationMessage.getText();
+        String emailErrorMessage = emailValidationMessage.getText();
+        String phoneNumberErrorMessage = phoneNumberValidationMessage.getText();
+
+        Assert.assertEquals(fullNameErrorMessage,"Enter your full name");
+        System.out.println("The text of the full name field validation message is : "+fullNameErrorMessage);
+
+        Assert.assertEquals(emailErrorMessage,"Invalid email format.");
+        System.out.println("The text of the email field validation message is : " + emailErrorMessage);
+
+        Assert.assertEquals(phoneNumberErrorMessage,"Invalid phone format.");
+        System.out.println("The text of the phone number field validation message is : "
+                + phoneNumberErrorMessage);
+        new BasePage(driver).reportScreenshot("- Validation messages are triggered and displayed properly");
+    }
     @AfterMethod
     public void tearDown() {
         driver.quit();

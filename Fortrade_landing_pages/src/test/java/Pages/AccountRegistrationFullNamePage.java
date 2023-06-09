@@ -21,9 +21,13 @@ public class AccountRegistrationFullNamePage extends BasePage{
     @FindBy (css = "[name='Phone']")
     WebElement phoneNumber;
     @FindBy (css = "[name='Send']")
-    WebElement startNowBtn;
+    public WebElement startNowBtn;
     @FindBy (xpath = "//div[@class='welcomePopup']//..//div[@id='startTradingButton']")
     public WebElement continueBtn;
+    @FindBy (xpath = "//div[@class='fscClass']//a[text()='Política de privacidad']")
+    public WebElement privacyPolicyLink;
+    @FindBy (xpath="//div[@class='fscClass']//a[text()=' Términos y condiciones']")
+    public WebElement clientAgreementLink;
 
     public void enterFullName(String fullNameValue){
         typeText(fullName,fullNameValue,"Full Name field");
