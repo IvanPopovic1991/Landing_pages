@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,12 @@ public class AccountRegistrationPage extends BasePage {
     public WebElement startNowBtn;
     @FindBy(xpath = "//div[@id='startTradingButton']")
     public WebElement continueBtn;
+    @FindBy (xpath = "//label[@class='checkboxItem MarketingMaterials']//a[text()='click here']")
+    public WebElement unsubscribeLink;
+    @FindBy (xpath = "//a[@class='heroBtn' and contains(text(),'TRY OUT')]")
+    public WebElement tryOutBtn;
+    @FindBy (xpath="//button[@class='closeButton']")
+    public WebElement closeBtn;
 
     public void enterFirstName(String firstNameValue) {
         typeText(firstName, firstNameValue, "First name field");
@@ -48,6 +55,9 @@ public class AccountRegistrationPage extends BasePage {
         typeText(phoneNumber, phoneNumberValue, "Phone number field");
     }
 
+    public void clickCloseBtn(){
+        clickElement(closeBtn,"close button in footer");
+    }
     public void accountRegistrationMethod(String firstNameValue, String lastNameValue, String emailValue, String countryCodeValue
             , String phoneNumberValue) {
         enterFirstName(firstNameValue);
