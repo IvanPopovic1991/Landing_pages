@@ -24,10 +24,20 @@ public class AccountRegistrationFullNamePage extends BasePage{
     public WebElement startNowBtn;
     @FindBy (xpath = "//div[@class='welcomePopup']//..//div[@id='startTradingButton']")
     public WebElement continueBtn;
-    @FindBy (xpath = "//div[@class='fscClass']//a[text()='Política de privacidad']")
-    public WebElement privacyPolicyLink;
-    @FindBy (xpath="//div[@class='fscClass']//a[text()=' Términos y condiciones']")
-    public WebElement clientAgreementLink;
+    @FindBy (xpath = "//label[@class='checkboxItem MarketingMaterials']//a[text()='click here']")
+    public WebElement unsubscribeLink;
+    @FindBy (xpath = "//label[@class='checkboxItem MarketingMaterials']//a[text()='haga clic aquí']")
+    public WebElement hagaClicAquíLink;
+    @FindBy (xpath = "//label[@class='checkboxItem MarketingMaterials']//a[text()='kliknite ovde']")
+    public WebElement klikniteOvdelink;
+    @FindBy(xpath = "//p//a[contains(text(),'Already have an account? Login')]")
+    public WebElement loginLink;
+    @FindBy(xpath = "//p//a[contains(text(),'Već imate nalog? Prijavite se')]")
+    public WebElement prijaviteSeLink;
+    @FindBy (xpath = "//div[@id='formWrapper' and @class='col-md-5 formCover formCoverFixed']//button[@onclick='" +
+            "myCloseFormFunction()']")
+    public WebElement closeBtn;
+
 
     public void enterFullName(String fullNameValue){
         typeText(fullName,fullNameValue,"Full Name field");
@@ -48,5 +58,8 @@ public class AccountRegistrationFullNamePage extends BasePage{
         enterCountryCode(countryCodeValue);
         enterPhoneNumber(phoneNumberValue);
         clickElement(startNowBtn,"Join now button");
+    }
+    public void clickCloseBtn(){
+        clickElement(closeBtn,"close button in footer");
     }
 }
