@@ -2,83 +2,59 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="Landing Pages">
-    <test name="Check link redirections - FSC regulative">
+    <test name="Check if user try to register already registered account">
         <parameter name="countryCodeNumber" value="381"/>
-        <parameter name="regulative" value="FSC"/>
-        <parameter name="regulation" value="fsc"/>
-        <parameter name="tag" value="?tg=skip&amp;G_GEO=2051&amp;regulation=FSC"/>
         <classes>
+            <class name="Tests.RegistrationTestLp1">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp2">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp3">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp4">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
             <class name="Tests.RegistrationTestLp5">
                 <methods>
-                    <include name="checkRiskWarningLinkRedirection"/>
-                    <include name="checkPrivacyPolicyLinkRedirection"/>
-                    <include name="checkTermsAndConditionsLinkRedirection"/>
-                    <include name="checkFSCLinkRedirection"/>
-                    <include name="checkHowToUnsubscribeLinkRedirection"/>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp6">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp7">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp8">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp9">
+                <methods>
+                    <include name="userExist"/>
+                </methods>
+            </class>
+            <class name="Tests.RegistrationTestLp10">
+                <methods>
+                    <include name="userExist"/>
                 </methods>
             </class>
         </classes>
     </test>
-        <test name="Check link redirections - FCA regulative">
-            <parameter name="countryCodeNumber" value="44"/>
-            <parameter name="regulative" value="FCA"/>
-            <parameter name="regulation" value="fca"/>
-            <parameter name="tag" value="?tg=skip&amp;G_GEO=1006453&amp;regulation=FCA"/>
-            <classes>
-                <class name="Tests.RegistrationTestLp5">
-                    <methods>
-                        <include name="checkRiskWarningLinkRedirection"/>
-                        <include name="checkPrivacyPolicyLinkRedirection"/>
-                        <include name="checkTermsAndConditionsLinkRedirection"/>
-                        <include name="checkFCALinkRedirection"/>
-                    </methods>
-                </class>
-            </classes>
-        </test>
-    <test name="Check link redirections - cysec regulative">
-        <parameter name="countryCodeNumber" value="357"/>
-        <parameter name="regulative" value="cysec"/>
-        <parameter name="regulation" value="cysec"/>
-        <parameter name="tag" value="?tg=skip&amp;G_GEO=1000997&amp;regulation=CYSEC"/>
-        <classes>
-            <class name="Tests.RegistrationTestLp5">
-                <methods>
-                    <include name="checkRiskWarningLinkRedirection"/>
-                    <include name="checkPrivacyPolicyLinkRedirection"/>
-                    <include name="checkTermsAndConditionsLinkRedirection"/>
-                    <include name="checkCysecLinkRedirection"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-    <test name="Check link redirections - Asic regulative">
-        <parameter name="countryCodeNumber" value="61"/>
-        <parameter name="regulative" value="Asic"/>
-        <parameter name="regulation" value="asic"/>
-        <parameter name="tag" value="?tg=skip&amp;G_GEO=1000142&amp;regulation=ASIC"/>
-        <classes>
-            <class name="Tests.RegistrationTestLp5">
-                <methods>
-                    <include name="checkRiskWarningLinkRedirection"/>
-                    <include name="checkAsicLinkRedirection"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
-        <test name="Check link redirections - Iiroc regulative">
-            <parameter name="countryCodeNumber" value="1"/>
-            <parameter name="regulative" value="iiroc"/>
-            <parameter name="regulation" value="iiroc"/>
-            <parameter name="tag" value="?tg=skip&amp;G_GEO=9077369&amp;regulation=IIROC"/>
-            <classes>
-                <class name="Tests.RegistrationTestLp5">
-                    <methods>
-                        <include name="checkRiskWarningLinkRedirection"/>
-                        <include name="checkPrivacyPolicyLinkRedirection"/>
-                        <include name="checkTermsAndConditionsLinkRedirection"/>
-                        <include name="checkIirocLinkRedirection"/>
-                    </methods>
-                </class>
-            </classes>
-        </test>
 </suite>
