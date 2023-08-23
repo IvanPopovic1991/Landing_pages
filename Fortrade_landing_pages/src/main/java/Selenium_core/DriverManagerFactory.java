@@ -26,6 +26,12 @@ public class DriverManagerFactory {
             case "FIREFOX": {
                 driverManager = new FirefoxDriverManager();
             }break;
+            case "EDGE":{
+                driverManager = new MicrosoftEdgeDriverManager();
+            }break;
+            case "OPERA": {
+                driverManager = new OperaDriverManager();
+            }break;
             default: {
                 driverManager = new ChromeDriverManager();
             }break;

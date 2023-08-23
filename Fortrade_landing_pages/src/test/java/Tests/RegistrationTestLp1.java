@@ -21,7 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 public class RegistrationTestLp1 extends BaseTest {
     @BeforeMethod
     public void setUp() {
-        baseSetUp("CHROME", "114");
+        baseSetUp("OPERA", "114");
         driver.get("https://www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/");
     }
 
@@ -52,6 +52,7 @@ public class RegistrationTestLp1 extends BaseTest {
         Assert.assertEquals(regulativeValue, regulative);
         new BasePage(driver).reportScreenshot("Screenshot " + regulative + " regulative");
     }
+
     @Test(description = "Check if user is already registered")
     @Description("User try to register already registered account")
     @Parameters({"countryCodeNumber"})
@@ -59,14 +60,14 @@ public class RegistrationTestLp1 extends BaseTest {
         /**
          navigate to the landing page - driver.get() is triggered from setUp method
          */
-               AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
+        AccountRegistrationPage accountRegistrationPage = new AccountRegistrationPage(driver);
         /**
-        *register new account
-        */
-        accountRegistrationPage.accountRegistrationMethod("Testq","Testa",
-                "test"+System.currentTimeMillis()+"@mailinator.com",""+countryCodeNumber,
-                ""+System.currentTimeMillis());
-        WebDriverWait wdWait = new WebDriverWait(driver,10);
+         *register new account
+         */
+        accountRegistrationPage.accountRegistrationMethod("Testq", "Testa",
+                "test" + System.currentTimeMillis() + "@mailinator.com", "" + countryCodeNumber,
+                "" + System.currentTimeMillis());
+        WebDriverWait wdWait = new WebDriverWait(driver, 10);
         /**
          *save the email address used during account registration
          */
@@ -78,22 +79,22 @@ public class RegistrationTestLp1 extends BaseTest {
         /**
          * navigate to the same landing page in the new window
          */
-        baseSetUp("CHROME","114");
+        baseSetUp("OPERA", "114");
         driver.get("https://www.fortrade.com/minilps/en/reg-to-invest-in-stocks-only-work-with-the-best/");
         /**
          * try to register account by using email address from previous registration (already registered email address)
          */
         AccountRegistrationPage accountRegistrationPage1 = new AccountRegistrationPage(driver);
-        accountRegistrationPage1.accountRegistrationMethod("Testq","Testa",emailAddress,countryCodeNumber,
-                ""+System.currentTimeMillis());
+        accountRegistrationPage1.accountRegistrationMethod("Testq", "Testa", emailAddress, countryCodeNumber,
+                "" + System.currentTimeMillis());
         /**
          * check if user exist pop up appears and verify the same
          */
-        WebDriverWait wait = new WebDriverWait(driver,5);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[@name='UserExistLabel']")));
         WebElement userExistWindow = driver.findElement(By.xpath("//label[@name='UserExistLabel']"));
         userExistWindow.isDisplayed();
-        if(userExistWindow.isDisplayed()==true){
+        if (userExistWindow.isDisplayed() == true) {
             System.out.println("'It looks like you've already got an account associated with this email/phone. Log in instead or " +
                     " reset your password if you've forgotten it.' pop up window is displayed ");
         }
