@@ -18,7 +18,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 public class RegistrationTestLp8 extends BaseTest {
     @BeforeMethod
     public void setUp() {
-        baseSetUp("CHROME", "114");
+        baseSetUp("OPERA", "114");
         driver.get("https://www.fortrade.com/minilps/en/fast-execution/");
     }
 
@@ -79,7 +79,7 @@ public class RegistrationTestLp8 extends BaseTest {
         /**
          * navigate to the landing page - driver.get() is triggered from setUp method
          */
-        baseSetUp("CHROME","114");
+        baseSetUp("OPERA","114");
         driver.get("https://www.fortrade.com/minilps/en/fast-execution/");
         /**
          * try to register account by using email address from previous registration (already registered email address)

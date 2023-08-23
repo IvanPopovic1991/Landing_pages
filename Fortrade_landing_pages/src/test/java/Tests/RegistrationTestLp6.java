@@ -21,7 +21,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 public class RegistrationTestLp6 extends BaseTest {
     @BeforeMethod
     public void setUp() {
-        baseSetUp("CHROME", "114");
+        baseSetUp("OPERA", "114");
         driver.get("https://www.fortrade.com/minilps/en/when-you-jump-into-online-trading-be-smart-about-it/");
     }
 
@@ -81,7 +81,7 @@ public class RegistrationTestLp6 extends BaseTest {
         /**
          * navigate to the same landing page in the new window
          */
-        baseSetUp("CHROME","114");
+        baseSetUp("OPERA","114");
         driver.get("https://www.fortrade.com/minilps/en/when-you-jump-into-online-trading-be-smart-about-it/");
         /**
          * try to register account by using email address from previous registration (already registered email address)
